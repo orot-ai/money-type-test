@@ -77,24 +77,25 @@ export default function Home() {
       <div className="min-h-screen bg-gradient-luxury flex items-center justify-center p-4">
         <div className="bg-gradient-deep backdrop-blur-sm rounded-3xl shadow-2xl p-10 max-w-lg w-full border border-luxury-gold-200">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-4 text-white">
+            <h1 className="text-5xl font-bold mb-6 text-white">
               Be:On 머니 패턴 진단
             </h1>
             <div className="text-center mb-6">
               <p className="text-lg text-white mb-4">
-                당신의 <span className="font-bold" style={{color: '#fdd828'}}>'돈 패턴'</span>을 발견하는 시간
+                당신의 <span className="text-white">'돈 패턴'</span>을 발견하는 시간
               </p>
               <p className="text-white mb-4">
                 아래 35개 문항을 읽고,<br />
-                <span className="font-bold" style={{color: '#fdd828'}}>'돈'</span>과 관련하여 지금의 나와 닮았다고<br />
+                <span className="text-white">'돈'</span>과 관련하여 지금의 나와 닮았다고<br />
                 느껴지는 문항에 체크해주세요.
               </p>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6 text-left border border-dashed border-luxury-gold-300/50">
-              <ul className="text-white text-sm leading-relaxed space-y-2">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6 text-center border border-dashed border-luxury-gold-300/50">
+              <ul className="text-white text-sm leading-relaxed space-y-2 list-none">
                 <li>• 정답은 없습니다</li>
                 <li>• 편안한 마음으로 직관적으로 선택하세요</li>
+                <li>• 최소 5개 이상 선택해주세요</li>
                 <li>• 약 5-7분 소요됩니다</li>
               </ul>
             </div>
@@ -244,9 +245,9 @@ export default function Home() {
                     <div key={pattern} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-dashed border-yellow-400">
                       <div className="flex items-center mb-2">
                         <span className="text-2xl mr-2">{info.emoji}</span>
-                        <span className="font-medium text-sm text-white">{info.name}</span>
+                        <span className="font-medium text-xs text-white">{info.name}</span>
                       </div>
-                      <div className="text-2xl font-bold text-white">{score}점 ({percentage}%)</div>
+                      <div className="text-lg font-bold text-white">{score}점 ({percentage}%)</div>
                       <div className="mt-2">
                         <div className="bg-gray-200 rounded-full h-2">
                           <div
@@ -271,9 +272,9 @@ export default function Home() {
                 <p className="text-gray-300 mb-6">
                   사전 공지 없이 마감될 수 있습니다.
                 </p>
-                <button className="w-full bg-gradient-gold hover:shadow-2xl text-deep-blue-950 py-5 px-8 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 shadow-lg border-2 border-luxury-gold-300">
-                  지금 신청하기
-                </button>
+                <a href="https://orot.ai" target="_blank" rel="noopener noreferrer" className="block w-full bg-gradient-gold hover:shadow-2xl text-deep-blue-950 py-5 px-8 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 shadow-lg border-2 border-luxury-gold-300 text-center">
+                  홈페이지로 돌아가기
+                </a>
               </div>
             </div>
 
