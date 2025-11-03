@@ -347,12 +347,7 @@ export default function Home() {
                     <p className={`text-lg leading-relaxed transition-all duration-300 ${
                       selectedAnswers[index] ? 'text-white font-medium' : 'text-white'
                     }`}>
-                      {question.text.split(/('[^']*'|\"[^\"]*\")/).map((part, partIndex) => {
-                        if (part.match(/^['\"][^'\"]*['\"]$/)) {
-                          return <span key={partIndex} className="font-bold text-yellow-400">{part.slice(1, -1)}</span>;
-                        }
-                        return part;
-                      })}
+                      {question.text}
                     </p>
                   </div>
 
@@ -371,14 +366,14 @@ export default function Home() {
           <div className="text-center">
             <button
               onClick={handleSubmit}
-              disabled={selectedCount === 0}
+              disabled={selectedCount < 5}
               className={`w-full py-5 px-8 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:-translate-y-1 ${
-                selectedCount > 0
+                selectedCount >= 5
                   ? 'bg-gradient-gold hover:shadow-2xl text-deep-blue-950 hover:scale-105'
                   : 'bg-gray-500 text-gray-300 cursor-not-allowed'
               }`}
             >
-              {selectedCount > 0 ? `진단 결과 보기 (${selectedCount}개 선택됨)` : '최소 1개 이상 선택해주세요'}
+              {selectedCount >= 5 ? `진단 결과 보기 (${selectedCount}개 선택됨)` : `최소 5개 이상 선택해주세요 (현재 ${selectedCount}개)`}
             </button>
           </div>
 

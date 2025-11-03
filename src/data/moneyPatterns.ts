@@ -14,185 +14,172 @@ export type PatternType =
   | 'detachment-avoidance'
   | 'past-fixation';
 
-// 35문항 데이터
+// 35문항 데이터 (랜덤 순서)
 export const moneyPatternQuestions: MoneyPatternQuestion[] = [
-  // 성취 지향 패턴 (Q1-Q5)
   {
     id: "Q1",
-    text: "재정적으로 목표를 달성하는 것이 나의 능력을 증명한다고 생각한다.",
-    pattern: "achievement-oriented"
-  },
-  {
-    id: "Q2",
-    text: "남들과 경제적 상황을 비교하게 되고, 뒤처지는 것이 싫다.",
-    pattern: "achievement-oriented"
-  },
-  {
-    id: "Q3",
-    text: "돈을 잘 관리하고 불리는 과정에서 성취감을 느낀다.",
-    pattern: "achievement-oriented"
-  },
-  {
-    id: "Q4",
-    text: "재정적으로 성공해야 주변에서 인정받는다고 생각하는 편이다.",
-    pattern: "achievement-oriented"
-  },
-  {
-    id: "Q5",
-    text: "돈을 잘 버는 것이 나의 경쟁력이라고 생각한다.",
-    pattern: "achievement-oriented"
-  },
-
-  // 지배 지향 패턴 (Q6-Q10) - 성취 지향 패턴의 극단 케이스
-  {
-    id: "Q6",
-    text: "경쟁이나 협상에서 반드시 이겨야 하고, 지는 것은 견딜 수 없다.",
-    pattern: "dominance-oriented"
-  },
-  {
-    id: "Q7",
-    text: "목표를 달성하기 위해서라면 수단과 방법을 가리지 않는 편이다.",
-    pattern: "dominance-oriented"
-  },
-  {
-    id: "Q8",
-    text: "돈이 많아졌는데도 마음이 편하지 않고, 더 많이 벌어야 안심이 된다.",
-    pattern: "dominance-oriented"
-  },
-  {
-    id: "Q9",
-    text: "내가 주도권을 잃거나 누군가에게 통제당하는 상황이 되면 극도로 불안하다.",
-    pattern: "dominance-oriented"
-  },
-  {
-    id: "Q10",
-    text: "재정적으로 우위에 있어야 관계에서도 유리한 위치를 점할 수 있다고 생각한다.",
-    pattern: "dominance-oriented"
-  },
-
-  // 의존-안전 패턴 (Q11-Q15)
-  {
-    id: "Q11",
-    text: "혼자서 돈 관련 결정을 내리기 어렵고, 누군가 함께 결정해주면 좋겠다고 생각한다.",
-    pattern: "dependency-safety"
-  },
-  {
-    id: "Q12",
-    text: "재정 관리를 누군가(배우자, 전문가)가 대신 해주면 마음이 편할 것 같다.",
-    pattern: "dependency-safety"
-  },
-  {
-    id: "Q13",
-    text: "돈이나 재정에 대해 잘 모르는 편이고, 복잡한 금융 정보는 부담스럽다.",
-    pattern: "dependency-safety"
-  },
-  {
-    id: "Q14",
-    text: "손실 가능성이 있는 선택은 가급적 피하고, '안전'이 가장 중요하다고 생각한다.",
-    pattern: "dependency-safety"
-  },
-  {
-    id: "Q15",
-    text: "재정 문제가 복잡하거나 어려울 때, 혼자 감당하는 것이 버겁게 느껴진다.",
-    pattern: "dependency-safety"
-  },
-
-  // 충동-불안 패턴 (Q16-Q20)
-  {
-    id: "Q16",
-    text: "'지금이 기회다' 싶으면, 그 기회를 놓칠까 봐 불안해서 빠르게 결정하는 편이다.",
-    pattern: "impulse-anxiety"
-  },
-  {
-    id: "Q17",
-    text: "돈을 쓰거나 중요한 재정 결정을 할 때 충동적으로 결정하는 경우가 많다.",
-    pattern: "impulse-anxiety"
-  },
-  {
-    id: "Q18",
-    text: "'괜찮아, 어떻게든 되겠지' 또는 '이번엔 잘 될 거야'라는 생각으로 낙관하는 편이다.",
-    pattern: "impulse-anxiety"
-  },
-  {
-    id: "Q19",
-    text: "돈을 크게 벌거나 크게 잃은 경험이 있고, '적당한 선'을 정하기 어렵다.",
-    pattern: "impulse-anxiety"
-  },
-  {
-    id: "Q20",
     text: "쇼핑이나 소비가 스트레스를 풀어주는 방법이 될 때가 있다.",
     pattern: "impulse-anxiety"
   },
-
-  // 희생-결핍 패턴 (Q21-Q25)
   {
-    id: "Q21",
-    text: "나 자신을 위해 돈 쓰는 것이 '이기적'이거나 '낭비'하는 것 같아 불편하다.",
-    pattern: "sacrifice-scarcity"
-  },
-  {
-    id: "Q22",
-    text: "남(가족, 친구)을 위해 쓰는 것은 괜찮은데, 나를 위해 쓰는 것에는 망설이는 편이다.",
-    pattern: "sacrifice-scarcity"
-  },
-  {
-    id: "Q23",
-    text: "남에게 주는 것은 자연스럽지만, 받거나 도움을 요청하는 것은 부담스럽다.",
-    pattern: "sacrifice-scarcity"
-  },
-  {
-    id: "Q24",
-    text: "내가 베풀고 희생한 것에 비해 받은 게 없다는 서운함이나 억울함을 느낀 적이 많다.",
-    pattern: "sacrifice-scarcity"
-  },
-  {
-    id: "Q25",
-    text: "내가 원하는 것보다 남이 필요로 하는 것을 먼저 생각하는 편이다.",
-    pattern: "sacrifice-scarcity"
-  },
-
-  // 분리-회피 패턴 (Q26-Q30)
-  {
-    id: "Q26",
+    id: "Q2",
     text: "돈을 너무 중요하게 생각하면 나의 진정성이나 가치관을 잃을까 봐 걱정된다.",
     pattern: "detachment-avoidance"
   },
   {
-    id: "Q27",
+    id: "Q3",
+    text: "혼자서 돈 관련 결정을 내리기 어렵고, 누군가 함께 결정해주면 좋겠다고 생각한다.",
+    pattern: "dependency-safety"
+  },
+  {
+    id: "Q4",
+    text: "재정적으로 목표를 달성하는 것이 나의 능력을 증명한다고 생각한다.",
+    pattern: "achievement-oriented"
+  },
+  {
+    id: "Q5",
+    text: "돈으로 인해 손해를 보거나 배신당한 경험이 또 반복될까 봐 두렵다.",
+    pattern: "past-fixation"
+  },
+  {
+    id: "Q6",
+    text: "남들과 경제적 상황을 비교하게 되고, 뒤처지는 것이 싫다.",
+    pattern: "achievement-oriented"
+  },
+  {
+    id: "Q7",
+    text: "나 자신을 위해 돈 쓰는 것이 이기적이거나 낭비하는 것 같아 불편하다.",
+    pattern: "sacrifice-scarcity"
+  },
+  {
+    id: "Q8",
+    text: "경쟁이나 협상에서 반드시 이겨야 하고, 지는 것은 견딜 수 없다.",
+    pattern: "dominance-oriented"
+  },
+  {
+    id: "Q9",
+    text: "지금이 기회다 싶으면, 그 기회를 놓칠까 봐 불안해서 빠르게 결정하는 편이다.",
+    pattern: "impulse-anxiety"
+  },
+  {
+    id: "Q10",
+    text: "재정 관리를 누군가(배우자, 전문가)가 대신 해주면 마음이 편할 것 같다.",
+    pattern: "dependency-safety"
+  },
+  {
+    id: "Q11",
     text: "돈이나 물질에 집착하는 것은 속물적이거나 천박하다고 느낀다.",
     pattern: "detachment-avoidance"
   },
   {
-    id: "Q28",
-    text: "재정적 풍요보다 '의미 있는 일'이나 '가치 있는 삶'을 사는 것이 더 중요하다.",
+    id: "Q12",
+    text: "돈을 잘 관리하고 불리는 과정에서 성취감을 느낀다.",
+    pattern: "achievement-oriented"
+  },
+  {
+    id: "Q13",
+    text: "예전의 돈 관련 사건이 지금의 재정 결정에 여전히 영향을 미친다.",
+    pattern: "past-fixation"
+  },
+  {
+    id: "Q14",
+    text: "목표를 달성하기 위해서라면 수단과 방법을 가리지 않는 편이다.",
+    pattern: "dominance-oriented"
+  },
+  {
+    id: "Q15",
+    text: "남(가족, 친구)을 위해 쓰는 것은 괜찮은데, 나를 위해 쓰는 것에는 망설이는 편이다.",
+    pattern: "sacrifice-scarcity"
+  },
+  {
+    id: "Q16",
+    text: "돈이나 재정에 대해 잘 모르는 편이고, 복잡한 금융 정보는 부담스럽다.",
+    pattern: "dependency-safety"
+  },
+  {
+    id: "Q17",
+    text: "재정적 풍요보다 의미 있는 일이나 가치 있는 삶을 사는 것이 더 중요하다.",
     pattern: "detachment-avoidance"
   },
   {
-    id: "Q29",
+    id: "Q18",
+    text: "돈을 쓰거나 중요한 재정 결정을 할 때 충동적으로 결정하는 경우가 많다.",
+    pattern: "impulse-anxiety"
+  },
+  {
+    id: "Q19",
+    text: "재정적으로 성공해야 주변에서 인정받는다고 생각하는 편이다.",
+    pattern: "achievement-oriented"
+  },
+  {
+    id: "Q20",
+    text: "돈이 많아졌는데도 마음이 편하지 않고, 더 많이 벌어야 안심이 된다.",
+    pattern: "dominance-oriented"
+  },
+  {
+    id: "Q21",
+    text: "남에게 주는 것은 자연스럽지만, 받거나 도움을 요청하는 것은 부담스럽다.",
+    pattern: "sacrifice-scarcity"
+  },
+  {
+    id: "Q22",
+    text: "돈 문제가 생기면, 내 탓보다 상황이나 남의 잘못이라고 생각하는 편이다.",
+    pattern: "past-fixation"
+  },
+  {
+    id: "Q23",
+    text: "손실 가능성이 있는 선택은 가급적 피하고, 안전이 가장 중요하다고 생각한다.",
+    pattern: "dependency-safety"
+  },
+  {
+    id: "Q24",
     text: "현실적인 재정 계획을 세우기보다, 내가 하고 싶은 일이나 이상을 우선하는 편이다.",
     pattern: "detachment-avoidance"
+  },
+  {
+    id: "Q25",
+    text: "괜찮아, 어떻게든 되겠지 또는 이번엔 잘 될 거야라는 생각으로 낙관하는 편이다.",
+    pattern: "impulse-anxiety"
+  },
+  {
+    id: "Q26",
+    text: "돈을 잘 버는 것이 나의 경쟁력이라고 생각한다.",
+    pattern: "achievement-oriented"
+  },
+  {
+    id: "Q27",
+    text: "내가 주도권을 잃거나 누군가에게 통제당하는 상황이 되면 극도로 불안하다.",
+    pattern: "dominance-oriented"
+  },
+  {
+    id: "Q28",
+    text: "내가 베풀고 희생한 것에 비해 받은 게 없다는 서운함이나 억울함을 느낀 적이 많다.",
+    pattern: "sacrifice-scarcity"
+  },
+  {
+    id: "Q29",
+    text: "재정 문제가 복잡하거나 어려울 때, 혼자 감당하는 것이 버겁게 느껴진다.",
+    pattern: "dependency-safety"
   },
   {
     id: "Q30",
     text: "돈 이야기를 하는 것 자체가 불편하고 피하고 싶다.",
     pattern: "detachment-avoidance"
   },
-
-  // 과거-집착 패턴 (Q31-Q35)
   {
     id: "Q31",
-    text: "돈으로 인해 손해를 보거나 배신당한 경험이 또 반복될까 봐 두렵다.",
-    pattern: "past-fixation"
+    text: "돈을 크게 벌거나 크게 잃은 경험이 있고, 적당한 선을 정하기 어렵다.",
+    pattern: "impulse-anxiety"
   },
   {
     id: "Q32",
-    text: "예전의 '돈 관련 사건'이 지금의 재정 결정에 여전히 영향을 미친다.",
-    pattern: "past-fixation"
+    text: "재정적으로 우위에 있어야 관계에서도 유리한 위치를 점할 수 있다고 생각한다.",
+    pattern: "dominance-oriented"
   },
   {
     id: "Q33",
-    text: "돈 문제가 생기면, 내 탓보다 '상황'이나 '남의 잘못'이라고 생각하는 편이다.",
-    pattern: "past-fixation"
+    text: "내가 원하는 것보다 남이 필요로 하는 것을 먼저 생각하는 편이다.",
+    pattern: "sacrifice-scarcity"
   },
   {
     id: "Q34",
