@@ -383,17 +383,18 @@ export default function Home() {
                   <p className="text-gray-300 text-sm mb-5">
                     사전 공지 없이 마감될 수 있습니다.
                   </p>
+
                 </div>
 
-              {/* 홈페이지로 돌아가기 버튼 */}
-              <a href="https://orot.ai" target="_blank" rel="noopener noreferrer" className="block w-full bg-gradient-gold hover:shadow-2xl text-deep-blue-950 py-4 px-6 rounded-xl font-bold text-base transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 shadow-lg border-2 border-luxury-gold-300 text-center">
-                홈페이지로 돌아가기
+              {/* 30분 무료 진단 컨설팅 버튼 */}
+              <a href="https://open.kakao.com/o/sX81ks0h" target="_blank" rel="noopener noreferrer" className="block w-full bg-gradient-gold hover:shadow-2xl text-deep-blue-950 py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 shadow-lg border-2 border-luxury-gold-300 text-center">
+                30분 무료 진단 컨설팅
               </a>
 
               {/* 다시 테스트 버튼 */}
               <button
                 onClick={resetTest}
-                className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-4 px-6 rounded-xl font-semibold text-base transition-all duration-300"
+                className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300"
               >
                 다시 진단하기
               </button>
