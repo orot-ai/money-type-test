@@ -232,29 +232,30 @@ export default function Home() {
               })}
             </div>
 
-            {/* 모든 패턴 점수 */}
+            {/* 모든 패턴 점수 - 컴팩트 테이블 형태 */}
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 mb-8 border border-dashed border-yellow-400">
               <h4 className="text-lg font-bold mb-3 text-white flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-luxury-gold-500" /> 전체 패턴 점수
               </h4>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+
+              {/* 2열 테이블 형태로 최대한 컴팩트하게 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {Object.entries(patternScores).map(([pattern, score]) => {
                   const info = patternInfo[pattern as PatternType];
-                  const percentage = (score / 5) * 100;
                   return (
-                    <div key={pattern} className="bg-white/10 backdrop-blur-sm rounded-lg p-3 shadow-sm border border-dashed border-yellow-400">
-                      <div className="flex items-center mb-1">
-                        <span className="text-lg mr-1">{info.emoji}</span>
-                        <span className="font-medium text-xs text-white truncate">{info.name}</span>
+                    <div key={pattern} className="flex items-center justify-between bg-white/5 rounded-lg px-3 py-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">{info.emoji}</span>
+                        <span className="text-white text-base font-medium">{info.name}</span>
                       </div>
-                      <div className="text-sm font-bold text-white">{score}점</div>
-                      <div className="mt-1">
-                        <div className="bg-gray-200 rounded-full h-1.5">
+                      <div className="flex items-center gap-2">
+                        <div className="w-12 bg-gray-700 rounded-full h-1.5">
                           <div
-                            className="bg-gradient-gold h-1.5 rounded-full transition-all duration-500"
-                            style={{ width: `${percentage}%` }}
+                            className="bg-gradient-gold h-1.5 rounded-full"
+                            style={{ width: `${(score / 5) * 100}%` }}
                           />
                         </div>
+                        <span className="text-yellow-200 text-base font-bold min-w-[24px]">{score}</span>
                       </div>
                     </div>
                   );
