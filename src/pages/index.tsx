@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { moneyPatternQuestions, patternInfo, PatternType, MoneyPatternQuestion } from '@/data/moneyPatterns';
 import { Sparkles, TrendingUp, Zap, Heart, Shield, Trophy, Lock, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -12,6 +12,34 @@ export default function Home() {
   const [showResult, setShowResult] = useState(false);
   const [patternScores, setPatternScores] = useState<PatternScores>({});
   const [currentPatternIndex, setCurrentPatternIndex] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const scrollToCenter = (index: number) => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const buttons = container.querySelectorAll('button');
+    const targetButton = buttons[index];
+
+    if (targetButton) {
+      const containerWidth = container.offsetWidth;
+      const buttonLeft = targetButton.offsetLeft;
+      const buttonWidth = targetButton.offsetWidth;
+
+      // 버튼의 중앙이 컨테이너 중앙에 오도록 스크롤 위치 계산
+      const scrollPosition = buttonLeft - (containerWidth / 2) + (buttonWidth / 2);
+
+      container.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const handlePatternClick = (index: number) => {
+    setCurrentPatternIndex(index);
+    scrollToCenter(index);
+  };
 
   const toggleAnswer = (index: number) => {
     const newSelectedAnswers = [...selectedAnswers];
@@ -278,14 +306,18 @@ export default function Home() {
                       <div className="absolute right-0 top-0 w-8 h-full bg-gradient-to-l from-[#191e37] to-transparent z-10 pointer-events-none"></div>
 
                       {/* 스크롤 가능한 썸네일 컨테이너 */}
-                      <div className="flex gap-3 px-8 py-2 overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                      <div
+                        ref={scrollContainerRef}
+                        className="flex gap-3 px-8 py-2 overflow-x-auto scrollbar-hide"
+                        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                      >
                         {topPatterns.map((pattern, index) => {
                           const info = patternInfo[pattern as PatternType];
                           const isActive = index === currentPatternIndex;
                           return (
                             <button
                               key={pattern}
-                              onClick={() => setCurrentPatternIndex(index)}
+                              onClick={() => handlePatternClick(index)}
                               className={`flex items-center gap-2 px-3 py-2 rounded-md transition-all duration-200 text-sm whitespace-nowrap flex-shrink-0 ${
                                 isActive
                                   ? 'bg-yellow-400/20 text-yellow-400 border border-yellow-400/50 shadow-lg'
