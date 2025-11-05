@@ -2,6 +2,19 @@ import { useState, useEffect, useRef } from 'react';
 import { moneyPatternQuestions, patternInfo, PatternType, MoneyPatternQuestion } from '@/data/moneyPatterns';
 import { Sparkles, TrendingUp, Zap, Heart, Shield, Trophy, Lock, ChevronLeft, ChevronRight } from 'lucide-react';
 
+// Google Analytics 추적 함수
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
+
+const trackEvent = (eventName: string, parameters: Record<string, any> = {}) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', eventName, parameters);
+  }
+};
+
 interface PatternScores {
   [key: string]: number;
 }
@@ -69,6 +82,29 @@ export default function Home() {
       }
     });
 
+    // 최고 점수 패턴 찾기
+    const maxScore = Math.max(...Object.values(scores));
+    const topPatterns = Object.entries(scores)
+      .filter(([_, score]) => score === maxScore && score > 0)
+      .map(([pattern, _]) => pattern);
+
+    const totalSelected = answers.filter(answer => answer).length;
+
+    // Google Analytics 이벤트 추적
+    trackEvent('diagnosis_completed', {
+      patterns: topPatterns.map(pattern => patternInfo[pattern as PatternType].name).join(' & '),
+      achievement_score: scores['achievement-oriented'],
+      dominance_score: scores['dominance-oriented'],
+      dependency_safety_score: scores['dependency-safety'],
+      impulse_anxiety_score: scores['impulse-anxiety'],
+      sacrifice_scarcity_score: scores['sacrifice-scarcity'],
+      detachment_avoidance_score: scores['detachment-avoidance'],
+      past_fixation_score: scores['past-fixation'],
+      total_selected: totalSelected,
+      is_complex: topPatterns.length > 1,
+      timestamp: new Date().toISOString()
+    });
+
     setPatternScores(scores);
     setShowResult(true);
   };
@@ -81,6 +117,14 @@ export default function Home() {
   };
 
   const resetTest = () => {
+    const topPatterns = getTopPatterns();
+
+    // Google Analytics 이벤트 추적
+    trackEvent('retake_test', {
+      previous_patterns: topPatterns.map(pattern => patternInfo[pattern as PatternType].name).join(' & '),
+      timestamp: new Date().toISOString()
+    });
+
     setIsStarted(false);
     setSelectedAnswers(new Array(moneyPatternQuestions.length).fill(false));
     setShowResult(false);
@@ -132,7 +176,12 @@ export default function Home() {
           </div>
 
           <button
-            onClick={() => setIsStarted(true)}
+            onClick={() => {
+              setIsStarted(true);
+              trackEvent('test_started', {
+                timestamp: new Date().toISOString()
+              });
+            }}
             className="w-full bg-gradient-gold hover:shadow-2xl text-deep-blue-950 py-4 px-8 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:-translate-y-1"
           >
             진단 시작하기
@@ -387,7 +436,19 @@ export default function Home() {
                 </div>
 
               {/* 30분 무료 진단 컨설팅 버튼 */}
-              <a href="https://open.kakao.com/o/sZqVwt0h" target="_blank" rel="noopener noreferrer" className="block w-full bg-gradient-gold hover:shadow-2xl text-deep-blue-950 py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 shadow-lg border-2 border-luxury-gold-300 text-center">
+              <a
+                href="https://open.kakao.com/o/sZqVwt0h"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  const topPatterns = getTopPatterns();
+                  trackEvent('kakao_consultation_click', {
+                    patterns: topPatterns.map(pattern => patternInfo[pattern as PatternType].name).join(' & '),
+                    timestamp: new Date().toISOString()
+                  });
+                }}
+                className="block w-full bg-gradient-gold hover:shadow-2xl text-deep-blue-950 py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 shadow-lg border-2 border-luxury-gold-300 text-center"
+              >
                 30분 무료 진단 컨설팅
               </a>
 
