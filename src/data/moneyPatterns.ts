@@ -205,7 +205,7 @@ export const patternInfo: Record<PatternType, {
   transformationPath: string;
 }> = {
   'achievement-oriented': {
-    name: '성취 지향 패턴',
+    name: '성취 지향 코드',
     emoji: '🎯',
     description: '당신에게 돈은 "존재 증명서"입니다. 목표를 이루는 순간, "나는 가치 있는 사람이야"라고 느낍니다. 하지만 그 안도감은 오래가지 않습니다. 다음 목표를 세우지 않으면 다시 불안해지기 때문입니다.',
     coreMessage: '"만약 오늘 아무것도 달성하지 못한다면, 당신은 어떤 사람인가요?"',
@@ -225,7 +225,7 @@ export const patternInfo: Record<PatternType, {
     transformationPath: '진짜 머니 주권자는 많이 이루는 사람이 아니라, 무의식에 끌려가지 않고 의식적으로 선택하는 사람입니다.'
   },
   'dominance-oriented': {
-    name: '지배 지향 패턴',
+    name: '지배 지향 코드',
     emoji: '👑',
     description: '당신에게 돈은 "생존 무기"입니다. 주도권을 쥐고 있을 때만 안전하다고 느낍니다. 현대 사회에서 성공한 사람들 중 이 패턴을 가진 이들이 많습니다. 하지만 역설이 있습니다. 돈이 많아져도 마음은 편하지 않습니다.',
     coreMessage: '"만약 당신이 모든 것을 통제할 수 있다 해도, 당신은 진짜 편안할 수 있을까요?"',
@@ -245,7 +245,7 @@ export const patternInfo: Record<PatternType, {
     transformationPath: '진짜 머니 주권자는 모든 것을 지배하는 사람이 아니라, 통제할 수 없는 것을 받아들이고 통제할 수 있는 것에 집중하는 사람입니다.'
   },
   'dependency-safety': {
-    name: '의존-안전 패턴',
+    name: '의존-안전 코드',
     emoji: '🤝',
     description: '당신에게 돈은 "혼자 감당하기 버거운 것"입니다. 누군가 함께 있으면 안심이 되고, 혼자 결정해야 할 때는 불안이 밀려옵니다. 이것은 무능력해서가 아닙니다. 어릴 적 "네가 어떻게 알아?"라는 말을 반복해서 들었거나, 중요한 결정에서 실패한 경험이 뇌리에 박혀 있기 때문입니다.',
     coreMessage: '"만약 조언해줄 사람이 없다면, 당신은 어떻게 결정하시겠어요?"',
@@ -265,7 +265,7 @@ export const patternInfo: Record<PatternType, {
     transformationPath: '진짜 머니 주권자는 모든 걸 혼자 하는 사람이 아니라, 필요할 때 도움을 받되 최종 결정은 스스로 내리는 사람입니다.'
   },
   'impulse-anxiety': {
-    name: '충동-불안 패턴',
+    name: '충동-불안 코드',
     emoji: '⚡',
     description: '당신에게 돈은 "지금 잡아야 하는 기회"입니다. 기다리는 시간이 불안합니다. "지금 아니면 놓친다"는 생각이 판단을 앞지릅니다. 이것은 조급함이 아닙니다. "기회를 놓치면 다시는 오지 않는다"는 결핍의 무의식이 작동하는 것입니다.',
     coreMessage: '"만약 24시간 기다린 후에 결정한다면, 당신은 같은 선택을 할까요?"',
@@ -285,7 +285,7 @@ export const patternInfo: Record<PatternType, {
     transformationPath: '진짜 머니 주권자는 기회를 포기하는 사람이 아니라, 진짜 기회와 가짜 긴급함을 구분할 수 있는 사람입니다.'
   },
   'sacrifice-scarcity': {
-    name: '희생-결핍 패턴',
+    name: '희생-결핍 코드',
     emoji: '💝',
     description: '당신에게 돈은 "남을 위해 쓰는 것"입니다. 나 자신을 위해 쓰는 순간, 죄책감이 밀려옵니다. 이것은 이타심이 아닙니다. "내가 먼저 받으면 이기적인 사람"이라는 어린 시절의 학습된 신념입니다.',
     coreMessage: '"만약 당신이 가장 소중한 사람이라면, 당신은 당신을 어떻게 대할 건가요?"',
@@ -305,7 +305,7 @@ export const patternInfo: Record<PatternType, {
     transformationPath: '진짜 머니 주권자는 남을 배려하지 않는 사람이 아니라, 나를 먼저 채워야 남에게도 줄 수 있다는 것을 아는 사람입니다.'
   },
   'detachment-avoidance': {
-    name: '분리-회피 패턴',
+    name: '분리-회피 코드',
     emoji: '🎨',
     description: '당신에게 돈은 "영혼을 더럽히는 것"입니다. 돈을 중요하게 여기는 순간, 나의 가치관과 진정성을 잃을 것 같은 두려움이 생깁니다. 이것은 순수함이 아닙니다. "돈 = 속물" 프레임 속에 갇혀서, 현실적인 계획을 세우지 못하는 것입니다.',
     coreMessage: '"만약 돈이 당신의 가치를 실현하는 도구라면 어떨까요?"',
@@ -325,7 +325,7 @@ export const patternInfo: Record<PatternType, {
     transformationPath: '진짜 머니 주권자는 돈에 집착하는 사람이 아니라, 돈을 가치 실현의 도구로 활용하는 사람입니다.'
   },
   'past-fixation': {
-    name: '과거-집착 패턴',
+    name: '과거-집착 코드',
     emoji: '🔒',
     description: '당신에게 돈은 "배신의 기억"입니다. 과거에 돈으로 인해 상처받은 경험이 있습니다. 그 기억이 지금도 당신의 선택을 지배합니다. 이것은 신중함이 아닙니다. "또 당할까봐" 두려워서, 새로운 기회 앞에서도 과거의 렌즈로 세상을 보는 것입니다.',
     coreMessage: '"만약 과거의 상처가 없었다면, 당신은 어떤 선택을 할까요?"',

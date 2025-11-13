@@ -108,7 +108,7 @@ export default function Home() {
     }
 
     if (!marketingConsent) {
-      showError('상세한 결과지를 받기 위해서는 마케팅 활용 동의가 필요합니다.');
+      showError('결과지를 받기 위해서는 마케팅 활용 동의가 필요합니다.');
       return;
     }
 
@@ -216,7 +216,7 @@ export default function Home() {
 
     // Google Analytics 이벤트 추적
     trackEvent('diagnosis_completed', {
-      patterns: topPatterns.map(pattern => patternInfo[pattern as PatternType].name).join(' & '),
+      codes: topPatterns.map(pattern => patternInfo[pattern as PatternType].name).join(' & '),
       achievement_score: scores['achievement-oriented'],
       dominance_score: scores['dominance-oriented'],
       dependency_safety_score: scores['dependency-safety'],
@@ -245,7 +245,7 @@ export default function Home() {
 
     // Google Analytics 이벤트 추적
     trackEvent('retake_test', {
-      previous_patterns: topPatterns.map(pattern => patternInfo[pattern as PatternType].name).join(' & '),
+      previous_codes: topPatterns.map(pattern => patternInfo[pattern as PatternType].name).join(' & '),
       timestamp: new Date().toISOString()
     });
 
@@ -281,11 +281,11 @@ export default function Home() {
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
               <span className="block md:inline">Be:On</span>
-              <span className="block md:inline md:ml-2">머니 코드 진단</span>
+              <span className="block md:inline md:ml-2">머니게임 코드 진단</span>
             </h1>
             <div className="text-center mb-6">
               <p className="text-lg text-white mb-4">
-                당신의 <span className="text-white">'돈 코드'</span>을 발견하는 시간
+                당신의 무의식적 머니게임 코드를 발견합니다
               </p>
               <p className="text-white mb-4">
                 아래 35개 문항을 읽고,<br />
@@ -362,7 +362,7 @@ export default function Home() {
             {/* 이메일 폼 */}
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6 border border-dashed border-yellow-400">
               <h3 className="text-xl font-bold mb-4 text-white text-center">
-                📧 상세한 결과를 받고 싶다면 이메일을 입력해주세요
+                📧 결과 확인을 위해 이메일을 입력해주세요
               </h3>
 
               <div className="space-y-4">
@@ -406,7 +406,7 @@ export default function Home() {
                     마케팅 활용에 동의합니다. *
                     <br />
                     <span className="text-gray-400 text-xs">
-                      상세한 결과지를 받으려면 필수 동의가 필요합니다.
+                      결과지를 받으려면 필수 동의가 필요합니다.
                     </span>
                   </label>
                 </div>
@@ -416,88 +416,9 @@ export default function Home() {
                 onClick={handleEmailSubmit}
                 className="w-full mt-6 bg-gradient-gold hover:shadow-2xl text-deep-blue-950 py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 transform hover:-translate-y-1"
               >
-                상세한 결과 보기
+                결과 확인하기
               </button>
 
-              <button
-                onClick={async () => {
-                  // 점수 미리 계산
-                  const scores: PatternScores = {
-                    'achievement-oriented': 0,
-                    'dominance-oriented': 0,
-                    'dependency-safety': 0,
-                    'impulse-anxiety': 0,
-                    'sacrifice-scarcity': 0,
-                    'detachment-avoidance': 0,
-                    'past-fixation': 0
-                  };
-
-                  selectedAnswers.forEach((answer, index) => {
-                    if (answer) {
-                      const pattern = moneyPatternQuestions[index].pattern;
-                      scores[pattern] += 1;
-                    }
-                  });
-
-                  // 최고 점수 코드 찾기
-                  const maxScore = Math.max(...Object.values(scores));
-                  const topPatterns = Object.entries(scores)
-                    .filter(([_, score]) => score === maxScore && score > 0)
-                    .map(([pattern, _]) => pattern);
-
-                  const totalSelected = selectedAnswers.filter(answer => answer).length;
-                  const timestamp = new Date().toISOString();
-                  const endTime = Date.now();
-                  const durationSeconds = testStartTime ? Math.round((endTime - testStartTime) / 1000) : null;
-                  const durationMinutes = durationSeconds ? Math.round(durationSeconds / 60 * 10) / 10 : null;
-
-                  // 웹훅으로 전송할 데이터 구성 (이메일 없음)
-                  const webhookData = {
-                    // 기본 정보
-                    timestamp,
-                    name: userName || null,
-                    email: null, // 이메일 입력하지 않음
-                    marketing_consent: false,
-
-                    // 진단 결과
-                    result_codes: topPatterns.map(pattern => patternInfo[pattern as PatternType].name).join(' & '),
-                    is_complex: topPatterns.length > 1,
-                    total_selected: totalSelected,
-
-                    // 시간 측정
-                    test_start_time: testStartTime ? new Date(testStartTime).toISOString() : null,
-                    test_end_time: new Date(endTime).toISOString(),
-                    duration_seconds: durationSeconds,
-                    duration_minutes: durationMinutes,
-
-                    // 각 코드별 점수
-                    achievement_score: scores['achievement-oriented'],
-                    dominance_score: scores['dominance-oriented'],
-                    dependency_safety_score: scores['dependency-safety'],
-                    impulse_anxiety_score: scores['impulse-anxiety'],
-                    sacrifice_scarcity_score: scores['sacrifice-scarcity'],
-                    detachment_avoidance_score: scores['detachment-avoidance'],
-                    past_fixation_score: scores['past-fixation'],
-                  };
-
-                  // 웹훅으로 데이터 전송
-                  const webhookSuccess = await sendToMakeWebhook(webhookData);
-
-                  // Google Analytics 이벤트 추적
-                  trackEvent('skip_email_collection', {
-                    webhook_sent: webhookSuccess,
-                    timestamp
-                  });
-
-                  setUserEmail('');
-                  setUserName('');
-                  setMarketingConsent(false);
-                  calculateResults(selectedAnswers);
-                }}
-                className="w-full mt-3 bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-xl font-medium text-base transition-all duration-300"
-              >
-                이메일 입력 없이 결과만 보기
-              </button>
             </div>
 
             {/* 안내 문구 */}
@@ -547,7 +468,7 @@ export default function Home() {
             <div className="text-center mb-8">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
                 <span className="block md:inline">Be:On</span>
-                <span className="block md:inline md:ml-2">머니 코드 진단 결과</span>
+                <span className="block md:inline md:ml-2">머니게임 코드 진단 결과</span>
               </h2>
               <p className="text-lg text-gray-300">
                 총 <span className="font-bold" style={{color: '#fdd828'}}>{totalSelected}개</span>의 문항을 선택하셨습니다
@@ -557,7 +478,7 @@ export default function Home() {
             {/* 결과 제목 */}
             <div className="text-center">
               <h3 className="text-3xl font-bold text-white mb-4">
-                🎯 당신의 머니 코드
+                🎯 당신의 머니게임 코드
               </h3>
               {isComplex ? (
                 <div>
@@ -675,11 +596,11 @@ export default function Home() {
                         </p>
                         <div className="mt-4 p-3 bg-white/10 rounded-lg">
                           <p className="text-white text-sm">
-                            당신은 지금 자신의 무의식 돈 코드을 발견했습니다.<br />
-                            이것이 첫 번째 단계입니다.<br /><br />
-                            다음 단계는?<br />
-                            이 코드을 실제로 전환하는 것입니다.<br /><br />
-                            <span className="font-bold" style={{color: '#fdd828'}}>Be:On은 이 여정을 함께 걷습니다.</span>
+                            당신의 무의식적 머니게임 코드를 발견하셨습니다.<br />
+                            이것이 머니주권자가 되는 첫 단계입니다.<br /><br />
+                            다음 단계는 발견한 코드를 '창조의 코드'로 전환하고,<br />
+                            돈의 흐름을 조율하는 주체로 서는 것입니다.<br /><br />
+                            <span className="font-bold" style={{color: '#fdd828'}}>Be:On은 이 전환의 여정을 함께 합니다.</span>
                           </p>
                         </div>
                       </div>
@@ -724,7 +645,7 @@ export default function Home() {
                       </div>
                     </div>
                     <p className="text-center text-white/60 text-xs mt-2">
-                      👆 코드을 클릭하여 바로 이동하세요
+                      👆 코드를 클릭하여 바로 이동하세요
                     </p>
                   </div>
                 )}
@@ -766,7 +687,7 @@ export default function Home() {
 
                 {/* CTA 버튼들 */}
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 text-center border border-dashed border-yellow-400">
-                  <h3 className="text-xl font-bold mb-4 text-white">📞 30분 무료 진단 컨설팅</h3>
+                  <h3 className="text-xl font-bold mb-4 text-white">🚀 30분 무료 진단 컨설팅</h3>
                   <p className="text-white text-base mb-4">
                     정상가 99,000원 → <span className="font-bold text-xl" style={{color: '#fdd828'}}>무료</span>
                   </p>
@@ -784,13 +705,13 @@ export default function Home() {
                 onClick={() => {
                   const topPatterns = getTopPatterns();
                   trackEvent('kakao_consultation_click', {
-                    patterns: topPatterns.map(pattern => patternInfo[pattern as PatternType].name).join(' & '),
+                    codes: topPatterns.map(pattern => patternInfo[pattern as PatternType].name).join(' & '),
                     timestamp: new Date().toISOString()
                   });
                 }}
                 className="block w-full bg-gradient-gold hover:shadow-2xl text-deep-blue-950 py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 shadow-lg border-2 border-luxury-gold-300 text-center"
               >
-                30분 무료 진단 컨설팅
+                🚀 30분 무료 진단 컨설팅 신청
               </a>
 
               {/* 다시 테스트 버튼 */}
@@ -837,7 +758,7 @@ export default function Home() {
           {/* 헤더 */}
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white whitespace-nowrap">
-              Be:On 머니 코드 진단
+              Be:On 머니게임 코드 진단
             </h2>
             <p className="text-lg text-gray-300 mb-4">
               편안한 마음으로, '지금의 나'와 조금이라도 닮았다고 느껴지는 문항에 체크하세요
